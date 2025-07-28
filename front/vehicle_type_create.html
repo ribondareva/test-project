@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание типа техники</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="p-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container d-flex justify-content-start">
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownVehicle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Техника
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
+          <a class="dropdown-item" href="vehicle_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="vehicle_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="vehicle_create.html">Создать технику</a>
+          <a class="dropdown-item" href="vehicle_list_delete.html">Список техники</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownSpare" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Запчасти
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownSpare">
+          <a class="dropdown-item" href="spare_part_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="spare_part_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="spare_part_create.html">Создать запчасть</a>
+          <a class="dropdown-item" href="spare_part_list_delete.html">Список запчастей</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownAttr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Атрибуты
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownAttr">
+          <a class="dropdown-item" href="attribute_create.html">Создать атрибут</a>
+          <a class="dropdown-item" href="attribute_list_delete.html">Список атрибутов</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="mb-4">Создание типа техники</h1>
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label">Название типа</label>
+        <input type="text" class="form-control" id="name" placeholder="Например, Трактор">
+      </div>
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>
