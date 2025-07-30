@@ -1,0 +1,14 @@
+.dropdown .btn {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+.dropdown-menu a {
+  color: black;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+  color: black;
+}

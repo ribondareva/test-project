@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание запчасти</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="p-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container d-flex justify-content-start">
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownVehicle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Техника
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
+          <a class="dropdown-item" href="vehicle_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="vehicle_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="vehicle_create.html">Создать технику</a>
+          <a class="dropdown-item" href="vehicle_list_delete.html">Список техники</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownSpare" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Запчасти
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownSpare">
+          <a class="dropdown-item" href="spare_part_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="spare_part_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="spare_part_create.html">Создать запчасть</a>
+          <a class="dropdown-item" href="spare_part_list_delete.html">Список запчастей</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownAttr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Атрибуты
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownAttr">
+          <a class="dropdown-item" href="attribute_create.html">Создать атрибут</a>
+          <a class="dropdown-item" href="attribute_list_delete.html">Список атрибутов</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="mb-4">Создание запчасти</h1>
+    <form>
+      <!-- Тип запчасти -->
+      <div class="form-group">
+        <label for="type">Тип запчасти</label>
+        <select class="form-control" id="type">
+          <option selected disabled>Выберите тип...</option>
+          <option>Фильтр</option>
+          <option>Гидронасос</option>
+        </select>
+      </div>
+
+      <!-- Техника -->
+      <div class="form-group">
+        <label for="vehicle">Закрепить за техникой</label>
+        <select class="form-control" id="vehicle">
+          <option selected disabled>Выберите технику...</option>
+          <option>УРАЛ A123BC</option>
+          <option>КамАЗ X456YY</option>
+        </select>
+      </div>
+
+      <!-- Статус -->
+      <div class="form-group">
+        <label for="status">Статус</label>
+        <select class="form-control" id="status">
+          <option>Установлено</option>
+          <option>На складе</option>
+          <option>В ремонте</option>
+          <option>Ожидает ремонт</option>
+        </select>
+      </div>
+
+      <!-- Атрибуты -->
+      <div class="form-group">
+        <label>Атрибуты</label>
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th style="width: 5%;">✔</th>
+              <th>Название</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" class="form-check-input mt-2">
+              </td>
+              <td>Диаметр (мм)</td>
+              <td>
+                <input type="text" class="form-control" placeholder="Например: 50">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" class="form-check-input mt-2">
+              </td>
+              <td>Вес (кг)</td>
+              <td>
+                <input type="text" class="form-control" placeholder="Например: 3.2">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Фото -->
+      <div class="form-group">
+        <label class="form-label">Фотографии</label>
+        <input type="file" class="form-control mb-2">
+        <input type="file" class="form-control mb-2">
+        <input type="file" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

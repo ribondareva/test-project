@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Список типов техники</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="p-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container d-flex justify-content-start">
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownVehicle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Техника
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
+          <a class="dropdown-item" href="vehicle_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="vehicle_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="vehicle_create.html">Создать технику</a>
+          <a class="dropdown-item" href="vehicle_list_delete.html">Список техники</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownSpare" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Запчасти
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownSpare">
+          <a class="dropdown-item" href="spare_part_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="spare_part_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="spare_part_create.html">Создать запчасть</a>
+          <a class="dropdown-item" href="spare_part_list_delete.html">Список запчастей</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownAttr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Атрибуты
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownAttr">
+          <a class="dropdown-item" href="attribute_create.html">Создать атрибут</a>
+          <a class="dropdown-item" href="attribute_list_delete.html">Список атрибутов</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="mb-4">Типы техники</h1>
+    <table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>Название</th>
+      <th>Создано</th>
+      <th>Обновлено</th>
+      <th>Удалено</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>1</td>
+    <td><a href="vehicle_type_read_update.html">Трактор</a></td>
+    <td>2024-01-15</td>
+    <td>2025-07-19</td>
+    <td>✖</td>
+    <td>
+      <a href="vehicle_type_read_update.html?id=1" class="btn btn-sm btn-info">Открыть</a>
+      <button class="btn btn-sm btn-danger" onclick="confirmDelete('Трактор')">Удалить</button>
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><a href="vehicle_type_read_update.html">Грузовик</a></td>
+    <td>2024-02-01</td>
+    <td>2025-07-18</td>
+    <td>✔</td>
+    <td>
+      <a href="vehicle_type_read_update.html?id=2" class="btn btn-sm btn-info">Открыть</a>
+      <!-- Кнопка "Удалить" скрыта для удалённого -->
+    </td>
+  </tr>
+</tbody>
+
+</table>
+    <nav>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+      </ul>
+    </nav>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/vehicle_type_list_delete.js"></script>
+</body>
+</html>

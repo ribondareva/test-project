@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование техники</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="p-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container d-flex justify-content-start">
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownVehicle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Техника
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
+          <a class="dropdown-item" href="vehicle_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="vehicle_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="vehicle_create.html">Создать технику</a>
+          <a class="dropdown-item" href="vehicle_list_delete.html">Список техники</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-5">
+        <button class="btn dropdown-toggle" type="button" id="dropdownSpare" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Запчасти
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownSpare">
+          <a class="dropdown-item" href="spare_part_type_create.html">Создать тип</a>
+          <a class="dropdown-item" href="spare_part_type_list_delete.html">Список типов</a>
+          <a class="dropdown-item" href="spare_part_create.html">Создать запчасть</a>
+          <a class="dropdown-item" href="spare_part_list_delete.html">Список запчастей</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownAttr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Атрибуты
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownAttr">
+          <a class="dropdown-item" href="attribute_create.html">Создать атрибут</a>
+          <a class="dropdown-item" href="attribute_list_delete.html">Список атрибутов</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="mb-4">Редактирование техники</h1>
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Регистрационный номер</label>
+        <input type="text" class="form-control" value="A123BC">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Брэнд</label>
+        <input type="text" class="form-control" value="УРАЛ">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Дата покупки</label>
+        <input type="date" class="form-control" value="2023-05-10">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Тип техники</label>
+        <select class="form-select">
+          <option selected>Трактор</option>
+          <option>Грузовик</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Пробег (км)</label>
+        <input type="number" step="0.1" class="form-control" value="1500.0">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Статус эксплуатации</label>
+        <select class="form-select">
+          <option selected>В работе</option>
+          <option>Простой</option>
+          <option>Ремонт</option>
+        </select>
+      </div>
+
+      <h5 class="mt-4">Текущие фотографии</h5>
+      <div class="row mb-3">
+        <div class="col-md-3 position-relative">
+          <img src="img/vehicles/1.jpg" class="img-thumbnail">
+          <button class="btn btn-sm btn-success position-absolute top-0 end-0"
+                  style="font-size: 0.7rem; padding: 0.2rem 0.4rem;"
+                  onclick="return confirmDeletePhoto('1.jpg')">&#10004;
+          </button>
+        </div>
+        <div class="col-md-3 position-relative">
+          <img src="img/vehicles/2.jpg" class="img-thumbnail">
+          <button class="btn btn-sm btn-success position-absolute top-0 end-0"
+            style="font-size: 0.7rem; padding: 0.2rem 0.4rem;"
+            onclick="return confirmDeletePhoto('2.jpg')">&#10004;
+          </button>
+        </div>
+        <div class="col-md-3 position-relative">
+          <img src="img/vehicles/3.jpg" class="img-thumbnail">
+          <button class="btn btn-sm btn-success position-absolute top-0 end-0"
+            style="font-size: 0.7rem; padding: 0.2rem 0.4rem;"
+            onclick="return confirmDeletePhoto('3.jpg')">&#10004;
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Добавить новые фото</label>
+        <input type="file" class="form-control" multiple>
+        <input type="file" class="form-control" multiple>
+        <input type="file" class="form-control" multiple>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/vehicle_update.js"></script>
+</body>
+</html>
