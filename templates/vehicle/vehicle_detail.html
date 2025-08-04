@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}{{ view.object.pk|default:"Создание техники" }}{% endblock %}
+
+{% block content %}
+    <h2>Карточка техники</h2>
+
+    <p><strong>Марка:</strong> {{ object.brand }}</p>
+    <p><strong>Регистрационный номер:</strong> {{ object.reg_number }}</p>
+    <p><strong>Тип:</strong> {{ object.vehicle_type.name }}</p>
+    <p><strong>Дата покупки:</strong> {{ object.date_purchase }}</p>
+    <p><strong>Пробег:</strong> {{ object.mileage }}</p>
+    <p><strong>Статус:</strong> {{ object.get_operation_status_display }}</p>
+    <p><strong>Дата создания:</strong> {{ object.created_at }}</p>
+    <p><strong>Дата обновления:</strong> {{ object.updated_at }}</p>
+    <p><strong>Удалено:</strong> {% if object.is_deleted %}✔{% else %}✘{% endif %}</p>
+    <h3>Фотографии</h3>
+    {% for image in object.images.all %}
+    {% if not image.is_deleted %}
+     <div class="image-box">
+        {% thumbnail image.file "300x300" crop="center" as thumb %}
+          <img src="{{ thumb.url }}" alt="Фото" width="{{ thumb.width }}" height="{{ thumb.height }}">
+        {% endthumbnail %}
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="delete_image_id" value="{{ image.id }}">
+        </form>
+      </div>
+    {% endif %}
+    {% empty %}
+        <p>Нет загруженных изображений</p>
+    {% endfor %}
+
+    <p><a href="{% url 'vehicle_update' pk=object.pk %}" class="btn btn-secondary">Редактировать</a></p>
+    <p><a href="{% url 'vehicles' %}">Назад к списку техники</a></p>
+
+{% endblock %}

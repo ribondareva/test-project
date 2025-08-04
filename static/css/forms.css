@@ -1,0 +1,34 @@
+.img-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.delete-form {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+}
+
+.delete-form button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.delete-form button:hover {
+  background-color: #218838;
+}
