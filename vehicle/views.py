@@ -12,14 +12,14 @@ class VehicleTypeCreateView(CreateView):
     model = VehicleType
     form_class = VehicleTypeForm
     template_name = "vehicle/vehicletype_form.html"
-    success_url = reverse_lazy('vehicle_types')
+    success_url = reverse_lazy('vehicle:vehicle_types')
 
 
 class VehicleTypeUpdateView(UpdateView):
     model = VehicleType
     form_class = VehicleTypeForm
     template_name = "vehicle/vehicletype_form.html"
-    success_url = reverse_lazy('vehicle_types')
+    success_url = reverse_lazy('vehicle:vehicle_types')
 
 
 class VehicleTypeListView(ListView):
@@ -31,7 +31,7 @@ class VehicleTypeListView(ListView):
 class VehicleTypeDeleteView(DeleteView):
     model = VehicleType
     template_name = "vehicle/vehicletype_list.html"
-    success_url = reverse_lazy("vehicle_types")
+    success_url = reverse_lazy("vehicle:vehicle_types")
 
     def post(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -47,23 +47,32 @@ class VehicleCreateView(CreateView):
     model = Vehicle
     form_class = VehicleForm
     template_name = "vehicle/vehicle_form.html"
-    success_url = reverse_lazy("vehicles")
+    success_url = reverse_lazy("vehicle:vehicles")
 
 
 class VehicleDetailView(DetailView):
     model = Vehicle
     template_name = "vehicle/vehicle_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        images = self.object.active_images()
+        context["images"] = images
+        context["has_images"] = images.exists()
+        return context
+
 
 class VehicleUpdateView(UpdateView):
     model = Vehicle
     form_class = VehicleForm
     template_name = "vehicle/vehicle_form.html"
-    success_url = reverse_lazy("vehicles")
+    success_url = reverse_lazy("vehicle:vehicles")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object'] = self.object  # чтобы работало {{ object.images.all }}
+        images = self.object.active_images()
+        context["images"] = images
+        context["has_images"] = images.exists()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -76,7 +85,7 @@ class VehicleUpdateView(UpdateView):
                 image.save()
             except ObjectDoesNotExist:
                 pass
-            return redirect("vehicle_update", pk=self.object.pk)
+            return redirect("vehicle:vehicle_update", pk=self.object.pk)
 
         form = self.get_form()
         if form.is_valid():
@@ -88,7 +97,7 @@ class VehicleUpdateView(UpdateView):
                     file=file
                 )
 
-            return redirect("vehicles")
+            return redirect("vehicle:vehicles")
         return self.form_invalid(form)
 
 
@@ -108,7 +117,7 @@ class VehicleListView(ListView):
 class VehicleDeleteView(DeleteView):
     model = Vehicle
     template_name = "vehicle/vehicle_list.html"
-    success_url = reverse_lazy("vehicles")
+    success_url = reverse_lazy("vehicle:vehicles")
 
     def post(self, request, *args, **kwargs):
         obj = self.get_object()
