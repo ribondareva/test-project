@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if view.object %}
+        Редактирование техники {{ view.object.reg_number }}
+    {% else %}
+        Создание техники
+    {% endif %}
+{% endblock %}
+{% block headblock %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'vehicle/css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>{{ view.object.pk|yesno:"Редактирование техники,Создание техники" }}</h2>
+
+ <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h4>Текущие фотографии</h4>
+    <div class="row mb-3">
+      {% if has_images %}
+        {% for image in images %}
+          <div class="col-md-2">
+            <div class="img-wrapper">
+              <img src="{{ image.file.url }}" class="img-thumbnail mb-2">
+              <button type="submit"
+                      name="delete_image_id"
+                      value="{{ image.id }}"
+                      class="delete-form btn-delete-photo">
+                &#10004;
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="ml-3">Нет текущих фото</p>
+      {% endif %}
+    </div>
+
+    <h4>Добавить новые фото</h4>
+    <input type="file" name="file" multiple class="form-control mb-3">
+    <input type="file" name="file" multiple class="form-control mb-3">
+    <input type="file" name="file" multiple class="form-control mb-3">
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="{% url 'vehicle:vehicles' %}" class="btn btn-secondary">Назад</a>
+  </form>
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'vehicle/js/confirm_actions.js' %}"></script>
+{% endblock %}

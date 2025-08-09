@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ view.object.pk|yesno:"Редактирование типа техники,Создание типа техники" }}{% endblock %}
+{% block headblock %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vehicle/css/forms.css' %}">
+{% endblock %}
 
 {% block content %}
   <h2>{{ view.object.pk|yesno:"Редактирование типа техники,Создание типа техники" }}</h2>
 
   <form method="post">
     {% csrf_token %}
-    {{ form.name.label_tag }}
-    {{ form.name }}
+    {{ form.as_p }}
     {% if object.pk %}
       <div class="form-group mt-3">
         <label>Дата создания</label>
@@ -30,6 +33,6 @@
       </div>
     {% endif %}
     <button type="submit" class="btn btn-success">Сохранить</button>
-    <a href="{% url 'vehicle_types' %}" class="btn btn-secondary">Назад</a>
+    <a href="{% url 'vehicle:vehicle_types' %}" class="btn btn-secondary">Назад</a>
   </form>
 {% endblock %}

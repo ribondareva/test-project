@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Список типов техники{% endblock %}
+{% block headblock %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'vehicle/css/lists.css' %}">
+{% endblock %}
 
 {% block content %}
 <h2>Список типов техники</h2>
@@ -30,13 +34,12 @@
         {% endif %}
       </td>
       <td>
-        <a href="{% url 'vehicle_type_update' type.pk %}" class="btn btn-sm btn-info">Просмотр</a>
+        <a href="{% url 'vehicle:vehicle_type_update' type.pk %}" class="btn btn-sm btn-info">Просмотр</a>
         {% if not type.is_deleted %}
-          <a href="{% url 'vehicle_type_update' type.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
-          <form method="post" action="{% url 'vehicle_type_delete' type.pk %}" style="display:inline;">
+          <a href="{% url 'vehicle:vehicle_type_update' type.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+          <form method="post" action="{% url 'vehicle:vehicle_type_delete' type.pk %}" class="form-inline-delete">
             {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-danger"
-              onclick="return confirm('Удалить этот тип техники?')">Удалить</button>
+            <button type="submit" class="btn btn-sm btn-danger btn-delete-type">Удалить</button>
           </form>
         {% endif %}
       </td>
@@ -68,4 +71,9 @@
     {% endif %}
   </ul>
 </nav>
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'vehicle/js/confirm_actions.js' %}"></script>
 {% endblock %}
