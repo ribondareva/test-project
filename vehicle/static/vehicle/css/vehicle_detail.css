@@ -2,3 +2,6 @@
   display: inline-block;
   margin: 10px;
 }
+.field-label {
+    font-weight: bold;
+}
