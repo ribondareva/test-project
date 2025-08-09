@@ -1,4 +1,5 @@
 from django.db import models
+from sorl.thumbnail import ImageField
 
 
 class VehicleType(models.Model):
@@ -30,9 +31,12 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"{self.reg_number} ({self.brand})"
 
+    def active_images(self):
+        return self.images.filter(is_deleted=False)
+
 
 class VehicleImage(models.Model):
-    file = models.ImageField(upload_to='vehicle_images/')
+    file = ImageField(upload_to='vehicle_images/')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='images')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
