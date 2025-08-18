@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Список техники{% endblock %}
+{% block headblock %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'vehicle/css/lists.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Список техники</h2>
+
+<form method="get" class="form-inline mb-3">
+  <input type="text" name="brand" value="{{ request.GET.brand }}" placeholder="Фильтровать по марке" class="form-control mr-2">
+  <button type="submit" class="btn btn-primary">Фильтровать</button>
+  <a href="{% url 'vehicle:vehicles' %}" class="btn btn-secondary ml-2">Сбросить</a>
+</form>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Рег. номер</th>
+      <th>Марка</th>
+      <th>Пробег</th>
+      <th>Статус</th>
+      <th>Тип</th>
+      <th>Удалено</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vehicle in object_list %}
+    <tr>
+      <td>{{ vehicle.id }}</td>
+      <td>{{ vehicle.reg_number }}</td>
+      <td>{{ vehicle.brand }}</td>
+      <td>{{ vehicle.mileage }}</td>
+      <td>{{ vehicle.get_operation_status_display }}</td>
+      <td>{{ vehicle.vehicle_type.name }}</td>
+      <td>
+        {% if vehicle.is_deleted %}
+          ✔
+        {% else %}
+          ❌
+        {% endif %}
+      </td>
+      <td>
+        <a href="{% url 'vehicle:vehicle_detail' vehicle.pk %}" class="btn btn-sm btn-info">Просмотр</a>
+        {% if not vehicle.is_deleted %}
+          <a href="{% url 'vehicle:vehicle_update' vehicle.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+
+          <form method="post" action="{% url 'vehicle:vehicle_delete' vehicle.pk %}" class="form-inline-delete">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger btn-delete-vehicle">Удалить</button>
+          </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="7" class="text-center">Нет записей</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<nav>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?{% if request.GET.brand %}brand={{ request.GET.brand }}&{% endif %}page={{ page_obj.previous_page_number }}">Предыдущая</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item active">
+      <span class="page-link">{{ page_obj.number }}</span>
+    </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?{% if request.GET.brand %}brand={{ request.GET.brand }}&{% endif %}page={{ page_obj.next_page_number }}">Следующая</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'vehicle/js/confirm_actions.js' %}"></script>
+{% endblock %}
