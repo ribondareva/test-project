@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Список запчастей{% endblock %}
+
+{% block headblock %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'spare_part/css/lists.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Список запчастей</h2>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Тип</th>
+      <th>Техника</th>
+      <th>Статус</th>
+      <th>Создано</th>
+      <th>Удалено</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if object_list %}
+      {% for p in object_list %}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.spareparttype.name }}</td>
+          <td>{% if p.vehicle %}{{ p.vehicle.reg_number }}{% else %}—{% endif %}</td>
+          <td>{{ p.get_status_display }}</td>
+          <td>{{ p.created_at|date:"Y-m-d" }}</td>
+          <td>{% if p.is_deleted %}✔{% else %}❌{% endif %}</td>
+          <td>
+            {% if not p.is_deleted %}
+              <a href="{% url 'spare_part:sparepart_detail' p.pk %}" class="btn btn-sm btn-secondary">Открыть</a>
+              <a href="{% url 'spare_part:sparepart_update' p.pk %}" class="btn btn-sm btn-info">Редактировать</a>
+              <form method="post"
+                    action="{% url 'spare_part:sparepart_delete' p.pk %}"
+                    class="form-inline-delete d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger btn-sparepart-delete">Удалить</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr><td colspan="7" class="text-center">Нет запчастей</td></tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<nav>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+      </li>
+    {% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'spare_part/js/confirm_actions.js' %}"></script>
+{% endblock %}

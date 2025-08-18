@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ view.object|yesno:"Редактирование типа,Создание типа" }}{% endblock %}
+{% block headblock %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'spare_part/css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>{{ view.object|yesno:"Редактирование типа запчасти,Создание типа запчасти" }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button type="submit" class="btn btn-success">Сохранить</button>
+  <a href="{% url 'spare_part:spareparttype_list' %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}
