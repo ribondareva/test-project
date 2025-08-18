@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ view.object|yesno:"Редактирование запчасти,Создание запчасти" }}{% endblock %}
+
+{% block headblock %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'spare_part/css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>{{ view.object|yesno:"Редактирование запчасти,Создание запчасти" }}</h2>
+
+<form method="post" enctype="multipart/form-data" id="sparepart-main-form">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <h4>Атрибуты</h4>
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Выбрать</th>
+        <th>Название</th>
+        <th>Значение</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ attr_formset.management_form }}
+      {% for f in attr_formset %}
+        <tr>
+          <td>{{ f.include }}</td>
+          <td>{{ f.attribute }}</td>
+          <td>{{ f.value }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Текущие фотографии</h4>
+  <div class="row mb-3">
+    {% if has_images %}
+      {% for image in images %}
+        <div class="col-md-2">
+          <div class="img-wrapper">
+            <img src="{{ image.file.url }}" class="img-thumbnail mb-2" alt="">
+            <button type="submit"
+                    name="delete_image_id"
+                    value="{{ image.id }}"
+                    class="btn btn-light btn-sparepart-photo-delete">
+              ✖
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="ml-3">Нет текущих фото</p>
+    {% endif %}
+  </div>
+
+  <h4>Добавить фотографии</h4>
+  <input type="file" name="file" multiple class="form-control mb-3">
+  <input type="file" name="file" multiple class="form-control mb-3">
+  <input type="file" name="file" multiple class="form-control mb-3">
+
+  <div class="mt-3">
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="{% url 'spare_part:sparepart_list' %}" class="btn btn-secondary">Назад</a>
+  </div>
+</form>
+
+{% if view.object %}
+  <form method="post"
+        action="{% url 'spare_part:sparepart_delete' view.object.pk %}"
+        class="d-inline mt-2">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-sparepart-delete">Удалить</button>
+  </form>
+{% endif %}
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'spare_part/js/confirm_actions.js' %}"></script>
+{% endblock %}

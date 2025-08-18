@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Атрибуты{% endblock %}
+
+{% block headblock %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'spare_part/css/lists.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Список атрибутов</h2>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Название</th>
+      <th>Единица</th>
+      <th>Тип данных</th>
+      <th>Дата создания</th>
+      <th>Дата обновления</th>
+      <th>Удалено</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if object_list %}
+      {% for a in object_list %}
+        <tr>
+          <td>{{ a.id }}</td>
+          <td>{{ a.name }}</td>
+          <td>{{ a.unit }}</td>
+          <td>{{ a.data_type }}</td>
+          <td>{{ a.created_at|date:"d.m.Y H:i" }}</td>
+          <td>{{ a.updated_at|date:"d.m.Y H:i" }}</td>
+          <td>
+            {% if a.is_deleted %}
+              ✔
+            {% else %}
+              ❌
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'spare_part:attribute_update' a.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+            {% if not a.is_deleted %}
+              <form method="post" action="{% url 'spare_part:attribute_delete' a.pk %}" class="form-inline-delete d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger btn-attribute-delete">Удалить</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr><td colspan="8" class="text-center">Атрибуты отсутствуют</td></tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<nav>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a></li>
+    {% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
+
+{% block customscripts %}
+  {{ block.super }}
+  <script src="{% static 'spare_part/js/confirm_actions.js' %}"></script>
+{% endblock %}
