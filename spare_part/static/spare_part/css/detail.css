@@ -1,0 +1,10 @@
+.field-label {
+  display: inline-block;
+  min-width: 220px;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.image-box {
+  margin-bottom: 12px;
+}
