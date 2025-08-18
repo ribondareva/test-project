@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('vehicle/', include('vehicle.urls', namespace='vehicle')),
+    path('spare_part/', include('spare_part.urls', namespace='spare_part')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
